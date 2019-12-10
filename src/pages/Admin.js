@@ -1,39 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "../components/Components";
 import { useAuth } from "../context/auth";
 import axios from 'axios';
+import { TabelaClientes } from "../components/TabelaClientes";
 
-function Admin(props) {
-  const { authTokens, setAuthTokens } = useAuth();
-  const { clientes, setClientes } = useState([]);
+function Admin() {
+  const { authTokens } = useAuth();
+  const [clientes, setClientes] = useState([]);
+  axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens;
+
+  const fetchData = () => {
+    axios.get('/v1/clientes/')
+      .then((response) => {
+        setClientes(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens.jwt;
-    const fetchData = async () => {
-      axios.get('/v1/clientes/')
-        .then((response) => {
-          setClientes(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
     fetchData();
   }, []);
 
-
-  function logOut() {
-    setAuthTokens();
-  }
-
-
-
   return (
     <div>
-      <div>Admin Page</div>
-      <div> {clientes}</div>
-     
-      <Button onClick={logOut}>Log out</Button>
+      <div>Lista Clientes</div>
+      {clientes && <TabelaClientes data={clientes} />}
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
+import NovoCliente from "./pages/NovoCliente";
 import { AuthContext } from "./context/auth";
+import Navbar from './components/NavBar';
 
 function App(props) {
   const [authTokens, setAuthTokens] = useState();
@@ -17,16 +19,10 @@ function App(props) {
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
         <div>
-          <ul>          
-            <li>
-              <Link to="/">Admin Page</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
+          {authTokens && <Navbar />}
           <PrivateRoute exact path="/" component={Admin} />
-          <Route path="/login" component={Login} />          
+          <PrivateRoute exact path="/novo" component={NovoCliente} />
+          <Route path="/login" component={Login} />
         </div>
       </Router>
     </AuthContext.Provider>

@@ -5,6 +5,7 @@ import { Card, Form, Input, Button, Error } from "../components/Components";
 import { useAuth } from "../context/auth";
 
 function Login(props) {
+
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -14,7 +15,7 @@ function Login(props) {
   function postLogin() {
     axios
       .post("/v1/acesso/login", {
-        login:userName,
+        login: userName,
         password
       })
       .then(result => {
@@ -31,7 +32,7 @@ function Login(props) {
   }
 
   let referer = "/";
-  if(props.location.state){
+  if (props.location.state) {
     referer = props.location.state.referer;
   }
 
