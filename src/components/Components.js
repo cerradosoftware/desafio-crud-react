@@ -35,6 +35,9 @@ const Button = styled.button`
   font-size: 0.8rem;
 `;
 
+const table = styled.table`
+`;
+
 const Logo = styled.img`
   width: 50%;
   margin-bottom: 1rem;

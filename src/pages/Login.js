@@ -13,7 +13,7 @@ function Login(props) {
 
   function postLogin() {
     axios
-      .post("http://localhost:8080/v1/acesso/login", {
+      .post("/v1/acesso/login", {
         login:userName,
         password
       })
