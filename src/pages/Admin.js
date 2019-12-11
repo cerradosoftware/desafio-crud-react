@@ -18,6 +18,18 @@ function Admin() {
       });
   };
 
+  const deleteCliente = (cliente) => {
+    axios
+      .delete("/v1/clientes/delete/" + cliente.id)
+      .then(result => {
+        console.log(result);
+        fetchData();
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -25,7 +37,7 @@ function Admin() {
   return (
     <div>
       <div>Lista Clientes</div>
-      {clientes && <TabelaClientes data={clientes} />}
+      {clientes && <TabelaClientes data={clientes} onDelete={deleteCliente} />}
     </div>
   );
 }

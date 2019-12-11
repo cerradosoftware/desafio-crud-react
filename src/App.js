@@ -5,10 +5,12 @@ import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import NovoCliente from "./pages/NovoCliente";
 import { AuthContext } from "./context/auth";
+import { ClienteContext } from "./context/cliente";
 import Navbar from './components/NavBar';
 
-function App(props) {
+function App() {
   const [authTokens, setAuthTokens] = useState();
+  const [cliente, setCliente] = useState();
 
   const setTokens = data => {
     localStorage.setItem("tokens", JSON.stringify(data));
@@ -17,15 +19,17 @@ function App(props) {
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-      <Router>
-        <div>
-          {authTokens && <Navbar />}
-          <PrivateRoute exact path="/" component={Admin} />
-          <PrivateRoute exact path="/novo" component={NovoCliente} />
-          <Route path="/login" component={Login} />
-        </div>
-      </Router>
-    </AuthContext.Provider>
+      <ClienteContext.Provider value={{ cliente, setCliente }}>
+        <Router>
+          <div>
+            {authTokens && <Navbar />}
+            <PrivateRoute exact path="/" component={Admin} />
+            <PrivateRoute exact path="/novo" component={NovoCliente} />
+            <Route path="/login" component={Login} />
+          </div>
+        </Router >
+      </ClienteContext.Provider >
+    </AuthContext.Provider >
   );
 }
 
