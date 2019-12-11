@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/auth";
+import { useCliente } from "../context/cliente";
 import axios from 'axios';
 import { TabelaClientes } from "../components/TabelaClientes";
+import { useHistory } from "react-router-dom";
 
 function Admin() {
   const { authTokens } = useAuth();
+  const { cliente, setCliente } = useCliente();
   const [clientes, setClientes] = useState([]);
+  let history = useHistory();
   axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens.jwt;
 
   const fetchData = () => {
@@ -30,6 +34,12 @@ function Admin() {
       });
   }
 
+  const editCliente = (cliente) => {
+    setCliente(cliente);
+
+    history.push("/editar")
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,7 +47,7 @@ function Admin() {
   return (
     <div>
       <div>Lista Clientes</div>
-      {clientes && <TabelaClientes data={clientes} onDelete={deleteCliente} />}
+      {clientes && <TabelaClientes data={clientes} onDelete={deleteCliente} onEdit={editCliente} />}
     </div>
   );
 }

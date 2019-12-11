@@ -4,6 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import NovoCliente from "./pages/NovoCliente";
+import EditCliente from "./pages/EditCliente";
 import { AuthContext } from "./context/auth";
 import { ClienteContext } from "./context/cliente";
 import Navbar from './components/NavBar';
@@ -25,6 +26,7 @@ function App() {
             {authTokens && <Navbar />}
             <PrivateRoute exact path="/" component={Admin} />
             <PrivateRoute exact path="/novo" component={NovoCliente} />
+            <PrivateRoute exact path="/editar" component={EditCliente} />
             <Route path="/login" component={Login} />
           </div>
         </Router >

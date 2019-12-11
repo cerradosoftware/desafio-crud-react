@@ -6,11 +6,6 @@ import axios from 'axios';
 export const TabelaClientes = ({ data, onDelete, onEdit }) => {
   const { authTokens } = useAuth();
 
-  const editCliente = (cliente) => {
-
-  }
-
-
 
   return <table className="table table-striped">
     <thead>
@@ -48,7 +43,7 @@ export const TabelaClientes = ({ data, onDelete, onEdit }) => {
           <td>{c.telefones[0].tipo} - {maskFone}</td>
           <td>{c.emails[0]}</td>
           {(authTokens.role === "ROLE_ADMIN") && <td>
-            <button className="material-icons" >create</button>
+            <button className="material-icons" onClick={() => { onEdit(c) }}>create</button>
           </td>}
           {(authTokens.role === "ROLE_ADMIN") && <td>
             <button className="material-icons" onClick={() => onDelete(c)}>close</button>
