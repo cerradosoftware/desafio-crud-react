@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Card, Form, Input, Button, Error } from "../components/Components";
 import { useAuth } from "../context/auth";
 
-function Login(props) {
+const Login = (props) => {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -41,31 +40,45 @@ function Login(props) {
   }
 
   return (
-    <Card>
-      <Form>
-        <Input
+    <div style={styles.container}>
+      <form>
+        <h1 className="h3 mb-3 font-weight-normal">Entre com seu usuario  </h1>
+        <input style={styles.input}
           type="username"
           value={userName}
           onChange={e => {
             setUserName(e.target.value);
           }}
-          placeholder="email"
+          className="form-control"
+          placeholder="usuario"
         />
-        <Input
+        <input style={styles.input}
           type="password"
           value={password}
           onChange={e => {
             setPassword(e.target.value);
           }}
+          className="form-control"
           placeholder="password"
         />
-        <Button onClick={postLogin}>Sign In</Button>
-      </Form>
-      {isError && (
-        <Error>Usuario/senha incorreto!</Error>
-      )}
-    </Card>
+        {isError && (
+          <div className="alert alert-danger" role="alert">Usuario/senha incorreto!</div>
+        )}
+        <button type="button" className="btn btn-lg btn-primary btn-block" onClick={postLogin}>Login</button>
+      </form>
+    </div>
   );
+}
+
+const styles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 250
+  },
+  input: {
+    marginBottom: 10
+  }
 }
 
 export default Login;

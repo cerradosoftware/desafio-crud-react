@@ -6,7 +6,7 @@ import { TabelaClientes } from "../components/TabelaClientes";
 function Admin() {
   const { authTokens } = useAuth();
   const [clientes, setClientes] = useState([]);
-  axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens;
+  axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens.jwt;
 
   const fetchData = () => {
     axios.get('/v1/clientes/')
