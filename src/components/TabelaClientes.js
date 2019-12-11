@@ -26,7 +26,7 @@ export const TabelaClientes = ({ data, onDelete, onEdit }) => {
       {data.map((c, i) => {
 
         let maskCpf = new StringMask('000.000.000-00').apply(c.cpf);
-        let maskCep = new StringMask('00000-000').apply(c.cep);
+        let maskCep = new StringMask('00000-000').apply(c.endereco.cep);
         let maskFone = (c.telefones[0].tipo === "CELULAR") ? new StringMask('(00) 00000-0000').apply(c.telefones[0].numero)
           : new StringMask('(00) 00000-0000').apply(c.telefones[0].numero);
 
