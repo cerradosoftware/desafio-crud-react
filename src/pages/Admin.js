@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 function Admin() {
   const { authTokens } = useAuth();
-  const { cliente, setCliente } = useCliente();
+  const { setCliente } = useCliente();
   const [clientes, setClientes] = useState([]);
   let history = useHistory();
   axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens.jwt;

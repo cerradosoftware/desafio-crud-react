@@ -15,7 +15,7 @@ const EditCliente = () => {
   axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens.jwt;
 
   //dados do formulario
-  let [id, setId] = useState(cliente.id);
+  let [id] = useState(cliente.id);
   let [nome, setNome] = useState(cliente.nome);
   let [cpf, setCpf] = useState(cliente.cpf);
   let [cep, setCep] = useState(cliente.endereco.cep);
@@ -84,13 +84,13 @@ const EditCliente = () => {
       .then(result => {
         if (result.status === 200) {
           setIsError(false);
-          console.log(result)
-          history.push("/")
+          console.log(result);
+          history.push("/");
         } else {
           setErrorMsg(result.statusText);
           setIsError(true);
         }
-        //reset();
+
       })
       .catch(e => {
         setErrorMsg(e.message);
@@ -126,7 +126,7 @@ const EditCliente = () => {
       {isError && (
         <div className="alert alert-danger" role="alert">{errorMsg}</div>
       )}
-      <button type="submit" className="btn btn-primary">Cadastrar</button>
+      <button type="submit" className="btn btn-primary">Editar</button>
     </form>
   );
 }

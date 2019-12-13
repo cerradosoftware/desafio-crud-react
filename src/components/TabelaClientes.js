@@ -1,7 +1,6 @@
 import React from "react";
 import StringMask from "string-mask";
 import { useAuth } from "../context/auth"
-import axios from 'axios';
 
 export const TabelaClientes = ({ data, onDelete, onEdit }) => {
   const { authTokens } = useAuth();
@@ -29,7 +28,6 @@ export const TabelaClientes = ({ data, onDelete, onEdit }) => {
         let maskCep = new StringMask('00000-000').apply(c.endereco.cep);
         let maskFone = (c.telefones[0].tipo === "CELULAR") ? new StringMask('(00) 00000-0000').apply(c.telefones[0].numero)
           : new StringMask('(00) 00000-0000').apply(c.telefones[0].numero);
-
 
         return <tr key={i}>
           <th scope="row">{c.id}</th>

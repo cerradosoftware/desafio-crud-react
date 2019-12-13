@@ -4,10 +4,12 @@ import axios from 'axios';
 import FormInput from "../components/FormInput";
 import { FormSelectEstados } from "../components/FormSelect";
 import { DynamicListEmail, DynamicListTelefone } from "../components/DynamicList";
+import { useHistory } from "react-router-dom";
 
 
 const NovoCliente = () => {
   const { authTokens } = useAuth();
+  let history = useHistory();
   axios.defaults.headers.common['Authorization'] = "Bearer " + authTokens.jwt;
 
   //dados do formulario
@@ -43,7 +45,7 @@ const NovoCliente = () => {
 
   }
 
-  const reset = () => {        
+  const reset = () => {
     setNome("");
     setCpf("");
     setCep("");
@@ -59,17 +61,17 @@ const NovoCliente = () => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    if(telefones.length === 0){
-        setErrorMsg("Ao menos um telefone deve ser informado");
-        setIsError(true);
-        return;
+    if (telefones.length === 0) {
+      setErrorMsg("Ao menos um telefone deve ser informado");
+      setIsError(true);
+      return;
     }
 
-    if(emails.length === 0){
+    if (emails.length === 0) {
       setErrorMsg("Ao menos um email deve ser informado");
       setIsError(true);
       return;
-  }
+    }
 
     let formData = {
       "nome": nome,
@@ -82,16 +84,17 @@ const NovoCliente = () => {
         "cidade": cidade,
         "uf": uf
       },
-      "telefones": telefones.map(t => {return {tipo: t.tipo, numero: t.numero.replace(/\D/g, '')}}),
+      "telefones": telefones.map(t => { return { tipo: t.tipo, numero: t.numero.replace(/\D/g, '') } }),
       "emails": emails
     }
 
     axios
-      .post("/v1/clientes/save",formData)
+      .post("/v1/clientes/save", formData)
       .then(result => {
-        if (result.status === 200) {  
-          setIsError(false);        
-          console.log(result)
+        if (result.status === 200) {
+          setIsError(false);
+          console.log(result);
+          history.push("/");
         } else {
           setErrorMsg(result.statusText);
           setIsError(true);
@@ -130,8 +133,8 @@ const NovoCliente = () => {
         </div>
       </div>
       {isError && (
-          <div className="alert alert-danger" role="alert">{errorMsg}</div>
-        )}
+        <div className="alert alert-danger" role="alert">{errorMsg}</div>
+      )}
       <button type="submit" className="btn btn-primary">Cadastrar</button>
     </form>
   );
